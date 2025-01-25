@@ -22,6 +22,15 @@ type cases = [
 
 // ============= Your Code Here =============
 type LookUp<
-U extends { type: PropertyKey },
-T extends PropertyKey
-> = U extends { type: T} ? U : never
+  U extends { type: PropertyKey },
+  T extends string
+> = U extends { type: T } ? U : never
+
+type LookUp2<
+  U extends { type: PropertyKey},
+  T extends string
+> = U extends { type: infer A } ?
+  T extends A
+    ? U
+    : never
+  :never
