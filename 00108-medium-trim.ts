@@ -12,8 +12,6 @@ type cases = [
   Expect<Equal<Trim<' \n\t '>, ''>>,
 ]
 
-type Test = Trim<'     str     '>
-
 
 // ============= Your Code Here =============
 type Whitespace = ' ' | '\n' | '\t'
@@ -27,5 +25,10 @@ type TrimRight<S extends string> =
     ? TrimRight<U>
     : S
 
-type Trim<S extends string> = TrimLeft<TrimRight<S>>
+type Trim0<S extends string> = TrimLeft<TrimRight<S>>
+
+type Trim<S extends string> =
+  S extends `${Whitespace}${infer U}` | `${infer U}${Whitespace}`
+    ? Trim<U>
+    : S
 
