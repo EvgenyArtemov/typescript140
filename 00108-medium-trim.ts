@@ -20,16 +20,12 @@ type Whitespace = ' ' | '\n' | '\t'
 type TrimLeft<S extends string> =
   S extends `${Whitespace}${infer U}`
     ? TrimLeft<U>
-    : Trim<S>
+    : S
 
 type TrimRight<S extends string> =
   S extends `${infer U}${Whitespace}`
     ? TrimRight<U>
-    : Trim<S>
+    : S
 
-type Trim<S extends string> =
-  S extends `${Whitespace}${infer U}`
-    ? TrimLeft<U>
-    : S extends `${infer A}${Whitespace}`
-      ? TrimRight<A>
-      : S
+type Trim<S extends string> = TrimLeft<TrimRight<S>>
+
