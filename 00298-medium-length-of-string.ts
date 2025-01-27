@@ -1,0 +1,18 @@
+// ============= Test Cases =============
+import type { Equal, Expect } from './test-utils'
+
+type cases = [
+  Expect<Equal<LengthOfString<''>, 0>>,
+  Expect<Equal<LengthOfString<'kumiko'>, 6>>,
+  Expect<Equal<LengthOfString<'reina'>, 5>>,
+  Expect<Equal<LengthOfString<'Sound! Euphonium'>, 16>>,
+]
+
+type Test = LengthOfString<'reina'>
+
+// ============= Your Code Here =============
+type LengthOfString<S extends string, Acc extends string[] = []> =
+  S extends `${infer Head}${infer Tail}`
+    ? LengthOfString<Tail, [...Acc, Head]>
+    : Acc['length']
+
