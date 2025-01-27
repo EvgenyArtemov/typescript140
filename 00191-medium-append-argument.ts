@@ -18,7 +18,10 @@ type Test = AppendArgument<(a: number, b: string) => number, boolean>
 
 
 // ============= Your Code Here =============
-type AppendArgument<Fn extends (...args: any[]) => any, A> =
+type AppendArgument0<Fn extends (...args: any[]) => any, A> =
   Fn extends (...args: infer U) => infer T
     ? (...args: [...U, A]) => T
     : never
+
+type AppendArgument<Fn extends (...args: any[]) => unknown, A> =
+  (...args: [...Parameters<Fn>, A]) => ReturnType<Fn>
