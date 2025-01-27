@@ -55,6 +55,11 @@ type _AppendToObject<T extends Record<string, any>, U extends string, V> = {
 }
 
 
-type AppendToObject<T extends Record<string, any>, U extends string, V> = {
+type AppendToObject0<T extends Record<string, any>, U extends string, V> = {
   [P in keyof T | U]: (T & Record<U, V>)[P]
+}
+
+
+type AppendToObject<T extends Record<string, any>, U extends string, V> = {
+  [P in keyof T | U]: P extends keyof T ? T[P] : V
 }
