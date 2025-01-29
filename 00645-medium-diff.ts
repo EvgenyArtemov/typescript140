@@ -34,6 +34,8 @@ type Diff0<T, U> = {
         : never
 }
 
-type Diff<T, U> = {
+type Diff1<T, U> = {
   [P in keyof (T & U) as Exclude<P, keyof T & keyof U>]: (T & U)[P]
 }
+
+type Diff<T, U> = Omit<T & U, keyof (T | U)>
