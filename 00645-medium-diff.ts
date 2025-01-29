@@ -25,11 +25,15 @@ type cases = [
 type test = Diff<Coo, Foo>
 
 // ============= Your Code Here =============
-type Diff<T, U> = {
+type Diff0<T, U> = {
   [P in keyof (T & U) as Exclude<P, keyof T & keyof U>]:
     P extends keyof T
       ? T[P]
       : P extends keyof U
         ? U[P]
         : never
+}
+
+type Diff<T, U> = {
+  [P in keyof (T & U) as Exclude<P, keyof T & keyof U>]: (T & U)[P]
 }
