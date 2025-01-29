@@ -18,9 +18,14 @@ type Test = AnyOf<[0, '', false, [], {}, undefined, null]>
 
 // ============= Your Code Here =============
 type Falsy = '' | 0 | [] | Record<string, never> | null | undefined | false
-type AnyOf<T extends readonly unknown[]> =
+type AnyOf0<T extends readonly unknown[]> =
   T extends [infer Head, ...infer Tail]
       ? Head extends Falsy
-        ? AnyOf<Tail>
+        ? AnyOf0<Tail>
         : true
       : false
+
+type AnyOf<T extends unknown[]> =
+  T[number] extends Falsy
+    ? false
+    : true
