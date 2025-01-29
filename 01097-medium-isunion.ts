@@ -19,7 +19,7 @@ type cases = [
 
 
 // ============= Your Code Here =============
-type IsUnion<T, Copy = T> =
+type IsUnion0<T, Copy = T> =
   [T] extends [never]
     ? false
     : T extends never
@@ -27,3 +27,8 @@ type IsUnion<T, Copy = T> =
       : [Copy] extends [T]
         ? false
         : true
+
+type IsUnion<T, U = T> = 
+  [T extends infer X ? Exclude<U, X> : never] extends [never]
+    ? false
+    : true
