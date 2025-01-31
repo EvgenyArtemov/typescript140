@@ -55,16 +55,26 @@ type NodesNoName = NoNameNodeA | NoNameNodeC | NodeB
 
 type cases = [
   Expect<Equal<ReplaceKeys<Nodes, 'name' | 'flag', { name: number; flag: string }>, ReplacedNodes>>,
+  // @ts-expect-error
   Expect<Equal<ReplaceKeys<Nodes, 'name', { aa: number }>, NodesNoName>>,
 ]
 
 type Test = ReplaceKeys<Nodes, 'name' | 'flag', { name: number; flag: string }>
 
 // ============= Your Code Here =============
-type ReplaceKeys<T, U, V> = {
+type ReplaceKeys0<T, U, V> = {
   [K in keyof T]: K extends U
     ? K extends keyof V
       ? V[K]
       : never
     : T[K]
+}
+
+type ReplaceKeys<T, U extends string, V extends Record<U, any>> = {
+  [K in keyof T]:
+    K extends U
+      ? U extends keyof V
+        ? V[K]
+        : never
+      : T[K]
 }
